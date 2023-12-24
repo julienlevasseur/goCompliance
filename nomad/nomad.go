@@ -50,33 +50,3 @@ func GetJob(ctx context.Context, id string) (*nomad.Job, error) {
 
 	return job, nil
 }
-
-// PostJobDispatch implements the Nomad Job Dispatch call
-func PostJobDispatch(ctx context.Context, id string, j DispatchJob) (*nomad.JobDispatchResponse, error) {
-	n, err := nomadClient()
-	if err != nil {
-		return &nomad.JobDispatchResponse{}, err
-	}
-
-	jobDispatchResponse, _, err := n.Dispatch(id, j.Meta, j.Payload, "", nil)
-	if err != nil {
-		return &nomad.JobDispatchResponse{}, err
-	}
-
-	return jobDispatchResponse, nil
-}
-
-// DeleteJob deletes a rgistered job
-func DeleteJob(ctx context.Context, jobID string) error {
-	n, err := nomadClient()
-	if err != nil {
-		return err
-	}
-
-	_, _, err = n.Deregister(jobID, false, nil)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
