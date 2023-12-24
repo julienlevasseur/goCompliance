@@ -58,7 +58,7 @@ func PostJobDispatch(ctx context.Context, id string, j DispatchJob) (*nomad.JobD
 		return &nomad.JobDispatchResponse{}, err
 	}
 
-	jobDispatchResponse, _, err := n.Dispatch(id, j.Meta, j.Payload, nil)
+	jobDispatchResponse, _, err := n.Dispatch(id, j.Meta, j.Payload, "", nil)
 	if err != nil {
 		return &nomad.JobDispatchResponse{}, err
 	}
